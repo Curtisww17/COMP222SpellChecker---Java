@@ -73,8 +73,8 @@ public class SpellingTree {
 	 * @return true if val is in the children of c
 	 */
 	private boolean checkChar(char val, SpellingNode c) {
-		if (c.getChildAt(val) == null)
-			return false;
-		else return true;
+		if (c.getChildAt(val) != null)
+			return true;
+		else return false;
 	}
 }

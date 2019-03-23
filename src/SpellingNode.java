@@ -13,6 +13,9 @@ public class SpellingNode {
 	public SpellingNode(char val) {
 		value = val;
 		children = new SpellingNode[26];
+		for (SpellingNode current : children) {
+			current = null;
+		}
 		correctWord = false;
 	}
 	
@@ -38,7 +41,7 @@ public class SpellingNode {
 	 * @return false if the child already exists
 	 */
 	public boolean addChild(char val) {
-		if (getChildAt(val) == null)
+		if (getChildAt(val) != null)
 			return false;
 		children[val - 'A'] = new SpellingNode(val);
 		return true;
