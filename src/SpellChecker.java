@@ -15,6 +15,7 @@ public class SpellChecker {
 		myTree = new SpellingTree();
 		readWords("words.txt");
 		myTree.printWords("", myTree.root);
+		System.out.println("There were " + checkWords("test.txt") + " errors in the file.");
 	}
 	
 	/**
@@ -24,7 +25,27 @@ public class SpellChecker {
 	 * @return the number of misspelled words in the file given
 	 */
 	public static int checkWords(String fileName) {
-		return -1;
+		int count = 0;
+		File file = new File(fileName);
+		Scanner scan;
+		String currentWord;
+		try {
+			scan = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		System.out.println("\nWords spelled incorrectly:");
+		while (scan.hasNext()) {
+			currentWord = scan.next().replaceAll("[^a-zA-Z ]", "").toUpperCase(); //Disregards punctuation and changes to uppercase
+			if (!myTree.checkWord(currentWord)) {
+				count++;
+				System.out.println(currentWord);
+			}
+				
+		}
+		scan.close();
+		return count;
 	}
 	
 	/**
@@ -42,7 +63,9 @@ public class SpellChecker {
 			return;
 		}
 		while (scan.hasNext()) {
-			myTree.addWord(scan.next().toUpperCase());
+			myTree.addWord(scan.next().replaceAll("[^a-zA-Z ]", "").toUpperCase()); //Disregards punctuation and changes to uppercase
 		}
+		
+		scan.close();
 	}
 }
