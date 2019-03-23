@@ -18,9 +18,10 @@ public class SpellingNode {
 	
 	/**
 	 * This is a setter method for the correctWord member variable.
+	 * Sets it to be true
 	 */
 	public void setCorrect() {
-		
+		correctWord = true;
 	}
 	
 	/**
@@ -28,7 +29,7 @@ public class SpellingNode {
 	 * @return
 	 */
 	public boolean getCorrect() {
-		return false;
+		return correctWord;
 	}
 	
 	/**
@@ -37,7 +38,10 @@ public class SpellingNode {
 	 * @return false if the child already exists
 	 */
 	public boolean addChild(char val) {
-		return false;
+		if (getChildAt(val) == null)
+			return false;
+		children[val - 'A'] = new SpellingNode(val);
+		return true;
 	}
 	
 	/**
@@ -46,7 +50,7 @@ public class SpellingNode {
 	 * @return the Node associated with the character given
 	 */
 	public SpellingNode getChildAt(char val) {
-		return null;
+		return children[val - 'A'];
 	}
 	
 }
